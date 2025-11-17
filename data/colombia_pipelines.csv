@@ -1,0 +1,9 @@
+pipeline,start_lat,start_lon,end_lat,end_lon,capacity_bpd,tariff_usd_per_bbl,operator,length_km,notes
+Oleoducto Central (Ocensa),5.2300,-72.6900,9.4167,-75.7167,660000,5.50,Oleoducto Central S.A.,848,"Troncal que conecta Cusiana/Cupiagua con el terminal marítimo de Coveñas"
+Oleoducto Caño Limón - Coveñas,7.1000,-71.4000,9.4167,-75.7167,210000,4.20,Cenit Transporte y Logística,780,"Lleva crudo desde Arauca hasta la costa Caribe"
+Oleoducto de los Llanos (ODL),4.0700,-73.4700,5.2300,-72.6900,300000,3.80,ODL S.A.,235,"Conecta el hub de Apiay con Cusiana"
+Oleoducto Bicentenario,4.8600,-72.9700,6.9500,-71.9000,450000,4.00,Bicentenario de Colombia,230,"Tramo Araguaney - Banadía"
+Oleoducto Trasandino (OTA),0.6800,-76.8700,1.8100,-78.7600,140000,6.10,Cenit Transporte y Logística,305,"Cruza la cordillera para llegar al puerto de Tumaco"
+Oleoducto Magdalena Medio (OMM),7.0600,-73.8500,9.4167,-75.7167,240000,4.50,Ecopetrol,480,"Saca crudo refinado desde Barrancabermeja"
+Oleoducto del Putumayo,0.4800,-76.5000,2.4500,-76.6100,60000,6.50,Ecopetrol,306,"Tramo terrestre hasta el Oleoducto Trasandino"
+Poliducto Andino,4.6350,-74.0830,6.2518,-75.5636,80000,3.20,Ecopetrol,410,"Productos refinados Bogotá-Medellín"

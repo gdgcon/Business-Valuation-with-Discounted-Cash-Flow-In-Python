@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Oleoductos de Colombia</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-sA+rq3kG8zp0wHn6kF2zxb9S+V4Ee7dB37R0C6tGI3s="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-o9N1j7kP5JbQ8J3G1Jd3zyuCsQ1Ulu0wG3oJo0i0X+Q="
+      crossorigin=""
+    ></script>
+    <style>
+      body, html { margin: 0; height: 100%; }
+      #map { width: 100%; height: 100%; }
+      .leaflet-tooltip { font-size: 12px; }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      const pipelines = [{"pipeline": "Oleoducto Central (Ocensa)", "start_lat": 5.23, "start_lon": -72.69, "end_lat": 9.4167, "end_lon": -75.7167, "capacity_bpd": 660000, "tariff_usd_per_bbl": 5.5, "operator": "Oleoducto Central S.A.", "length_km": 848.0, "notes": "Troncal que conecta Cusiana/Cupiagua con el terminal marítimo de Coveñas"}, {"pipeline": "Oleoducto Caño Limón - Coveñas", "start_lat": 7.1, "start_lon": -71.4, "end_lat": 9.4167, "end_lon": -75.7167, "capacity_bpd": 210000, "tariff_usd_per_bbl": 4.2, "operator": "Cenit Transporte y Logística", "length_km": 780.0, "notes": "Lleva crudo desde Arauca hasta la costa Caribe"}, {"pipeline": "Oleoducto de los Llanos (ODL)", "start_lat": 4.07, "start_lon": -73.47, "end_lat": 5.23, "end_lon": -72.69, "capacity_bpd": 300000, "tariff_usd_per_bbl": 3.8, "operator": "ODL S.A.", "length_km": 235.0, "notes": "Conecta el hub de Apiay con Cusiana"}, {"pipeline": "Oleoducto Bicentenario", "start_lat": 4.86, "start_lon": -72.97, "end_lat": 6.95, "end_lon": -71.9, "capacity_bpd": 450000, "tariff_usd_per_bbl": 4.0, "operator": "Bicentenario de Colombia", "length_km": 230.0, "notes": "Tramo Araguaney - Banadía"}, {"pipeline": "Oleoducto Trasandino (OTA)", "start_lat": 0.68, "start_lon": -76.87, "end_lat": 1.81, "end_lon": -78.76, "capacity_bpd": 140000, "tariff_usd_per_bbl": 6.1, "operator": "Cenit Transporte y Logística", "length_km": 305.0, "notes": "Cruza la cordillera para llegar al puerto de Tumaco"}, {"pipeline": "Oleoducto Magdalena Medio (OMM)", "start_lat": 7.06, "start_lon": -73.85, "end_lat": 9.4167, "end_lon": -75.7167, "capacity_bpd": 240000, "tariff_usd_per_bbl": 4.5, "operator": "Ecopetrol", "length_km": 480.0, "notes": "Saca crudo refinado desde Barrancabermeja"}, {"pipeline": "Oleoducto del Putumayo", "start_lat": 0.48, "start_lon": -76.5, "end_lat": 2.45, "end_lon": -76.61, "capacity_bpd": 60000, "tariff_usd_per_bbl": 6.5, "operator": "Ecopetrol", "length_km": 306.0, "notes": "Tramo terrestre hasta el Oleoducto Trasandino"}, {"pipeline": "Poliducto Andino", "start_lat": 4.635, "start_lon": -74.083, "end_lat": 6.2518, "end_lon": -75.5636, "capacity_bpd": 80000, "tariff_usd_per_bbl": 3.2, "operator": "Ecopetrol", "length_km": 410.0, "notes": "Productos refinados Bogotá-Medellín"}];
+      const colors = ["#003f5c", "#58508d", "#bc5090", "#ff6361", "#ffa600", "#2f4b7c", "#665191", "#a05195"];
+      const map = L.map('map').setView([4.6, -74.2], 5);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 10,
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(map);
+
+      pipelines.forEach((pipeline, idx) => {
+        const color = colors[idx % colors.length];
+        const latlngs = [
+          [pipeline.start_lat, pipeline.start_lon],
+          [pipeline.end_lat, pipeline.end_lon]
+        ];
+
+        const popup = `
+          <strong>${pipeline.pipeline}</strong><br>
+          Operador: ${pipeline.operator}<br>
+          Capacidad: ${pipeline.capacity_bpd.toLocaleString('es-CO')} bpd<br>
+          Tarifa: USD ${pipeline.tariff_usd_per_bbl.toFixed(2)} / bbl<br>
+          Longitud: ${pipeline.length_km} km<br>
+          ${pipeline.notes}
+        `;
+
+        L.polyline(latlngs, { color, weight: 4, opacity: 0.85 })
+          .bindPopup(popup)
+          .bindTooltip(`${pipeline.pipeline} | ${pipeline.capacity_bpd.toLocaleString('es-CO')} bpd`)
+          .addTo(map);
+
+        latlngs.forEach((coord, pointIdx) => {
+          const label = pointIdx === 0 ? 'Origen' : 'Destino';
+          L.circleMarker(coord, { radius: 4, color, fillColor: color, fillOpacity: 0.9 })
+            .bindTooltip(`${pipeline.pipeline} - ${label}`)
+            .addTo(map);
+        });
+      });
+    </script>
+  </body>
+</html>
